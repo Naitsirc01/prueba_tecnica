@@ -8,28 +8,28 @@
 		border: solid 2px blue;
 		border-radius: 5px;
 	}
+    .card-body{
+        text-align: center;
+    }
 </style>
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row mt-2">
+        <h1>Laravel Home</h1>
+    </div>
+    <div class="row mt-4 justify-content-center">
         <div class="col-md-6">
         	<div class="card" style="width: 18rem;">
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
+                    <h5 class="card-title">Subir archivos</h5>
+                    <h2><a href="/archivo"><i class="fa-solid fa-upload"></i></a></h2>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
         	<div class="card" style="width: 18rem;">
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
+                    <h5 class="card-title">Mis archivos</h5>
+                    <h2><a href="/historial"><i class="fa-solid fa-box-archive"></i></a></h2>
                 </div>
             </div>
         </div>
