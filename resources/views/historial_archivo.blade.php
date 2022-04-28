@@ -4,8 +4,12 @@
         .card{
             margin-right: 2%;
         }
+        .paginas{
+            margin-top:2%;
+        }
     </style>
     <div class="card">
+        @include('layouts.mensajes')
         <h5 class="card-header">Historial de archivos</h5>
         <div class="card-body">
             <table class="table table-bordered">
@@ -17,13 +21,20 @@
                         <td>Acción</td>
                     </tr>
                 </thead>
-                <tr>
-                    <td>archivo 1</td>
-                    <td>20 mb</td>
-                    <td>Fecha</td>
-                    <td>Eliminar</td>
-                </tr>
+                <tbody>
+                    @foreach ($archivos as $a)
+                    <tr>
+                        <td>{{$a->nombre}}</td>
+                        <td>{{$a->peso}}</td>
+                        <td>{{$a->created_at}}</td>
+                        <td><a href="/delete_file/{{$a->id}}">Eliminar</a></td>
+                    </tr>   
+                    @endforeach
+                </tbody>
             </table>
+        </div>
+        <div class="paginas d-flex justify-content-center">
+            {!! $archivos->links() !!}
         </div>
     </div>
 @endsection
