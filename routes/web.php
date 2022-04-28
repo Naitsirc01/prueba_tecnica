@@ -16,3 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Auth::routes();
+
+Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
+Route::get('/archivo', 'App\Http\Controllers\ArchivoController@index');
+Route::get('/historial', 'App\Http\Controllers\ArchivoController@historial_archivo');
+Route::post('/upload_file', 'App\Http\Controllers\ArchivoController@upload_file');
