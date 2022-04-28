@@ -6,6 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
+                @if(Auth::guest())
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
@@ -66,8 +67,30 @@
                         </div>
                     </form>
                 </div>
+                @else
+                
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h3>Su sesión aun se encuentra abierta</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button id="home" class="btn btn-primary">Ir al Home</button>
+                        </div>
+                    </div>
+                </div>
+                @endif
+                
             </div>
         </div>
     </div>
 </div>
+<script>
+    document.getElementById("home").onclick=()=>{
+        location.href="/home";
+    }
+</script>
+
 @endsection

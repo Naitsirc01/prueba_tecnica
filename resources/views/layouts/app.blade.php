@@ -41,7 +41,9 @@
     .boton_menu{
         color:white;
     }
-
+    .boton_menu:hover{
+        cursor: pointer;
+    }
 </style>
 <body>
     <div id="app">
@@ -52,17 +54,22 @@
 
             <ul class="list-unstyled components">
                 <p>Menu</p>
+                <li>
+                    <a href="/home" class="boton_menu">Home</a>
+                </li>
+                @if(Auth::user()->hasRole('admin'))
                 <li class="active">
                     <a href="#homeSubmenuAdm" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Administrar</a>
                     <ul class="collapse list-unstyled" id="homeSubmenuAdm">
                         <li>
-                            <a class="boton_menu" href="/archivo">Subir un archivo</a>
+                            <a class="boton_menu" href="/usuarios">Usuarios</a>
                         </li>
                         <li>
                             <a class="boton_menu" href="/historial">Ver historial de archivos</a>
                         </li>
                     </ul>
                 </li>
+                @endif
                 <li class="active">
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Archivos</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
