@@ -44,7 +44,7 @@
                             @foreach ($archivos as $a)
                             <tr>
                                 <td>{{$a->nombre}}</td>
-                                <td>{{$a->peso}}</td>
+                                <td>{{number_format($a->peso/1000000,2)}} MB</td>
                                 <td>{{$a->created_at}}</td>
                                 @if($usuarios)
                                     <td><a href="/delete_file/{{$a->id}}/1">Eliminar</a></td>
