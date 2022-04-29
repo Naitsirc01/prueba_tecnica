@@ -1,13 +1,15 @@
 ## Prueba Técnica
-Para Iniciar el proyecto se debe clonar este repositorio dentro de la máquina virtual, 
-Luego se deberá seguir los siguientes pasos para instalar el proyecto.
+
 
 ## Instalación
+1. Para Iniciar el proyecto se debe clonar este repositorio dentro de la máquina virtual, 
+Luego se deberá seguir los siguientes pasos para instalar el proyecto.
+
 Este comando instalara Laravel Sail dentro del proyecto:
 
 composer require laravel/sail --dev
 
-Antes de continuar se debe configurar el archivo .env para realizar la instalación de los servicios.
+2. Antes de continuar se debe configurar el archivo .env para realizar la instalación de los servicios.
 
 APP_NAME=Laravel<br>
 APP_ENV=local<br>
@@ -62,13 +64,14 @@ PUSHER_APP_CLUSTER=mt1<br>
 MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}"<br>
 MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"<br>
 
-Una vez configurado nuestro archivo .env se debe ejecutar:
+3. Una vez configurado nuestro archivo .env se debe ejecutar:
 
 php artisan sail:install
 
 Cuando pregunte qué servicio instalar elegir la opción 0 mysql
 
-Una vez instalado ahora se podrá ejecutar el proyecto con siguiente comando:
+4. Una vez instalado ahora se podrá ejecutar el proyecto con siguiente comando:
+
 ./vendor/bin/sail up
 
 ## Migración
@@ -80,14 +83,15 @@ sail artisan migrate:fresh --seed
 ## Testing
 
 Para realizar las pruebas en PHPUnit se debe utilizar el siguiente comando:
+
 sail artisan test
 
 ## Credenciales
 
-admin:
-correo: admin@admin.com
-contraseña: secret
+admin:<br>
+correo: admin@admin.com<br>
+contraseña: secret<br>
 
-usuario:
-correo: user@user.com
-contraseña: secret
+usuario:<br>
+correo: user@user.com<br>
+contraseña: secret<br>
