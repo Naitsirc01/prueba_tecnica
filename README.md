@@ -2,14 +2,14 @@
 
 
 ## Instalación
-1. Para Iniciar el proyecto se debe clonar este repositorio dentro de la máquina virtual, 
+1- Para Iniciar el proyecto se debe clonar este repositorio dentro de la máquina virtual, 
 Luego se deberá seguir los siguientes pasos para instalar el proyecto.
 
 Este comando instalara Laravel Sail dentro del proyecto:
 
 composer require laravel/sail --dev
 
-2. Antes de continuar se debe configurar el archivo .env para realizar la instalación de los servicios.
+2- Antes de continuar se debe configurar el archivo .env para realizar la instalación de los servicios.
 
 APP_NAME=Laravel<br>
 APP_ENV=local<br>
@@ -64,13 +64,13 @@ PUSHER_APP_CLUSTER=mt1<br>
 MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}"<br>
 MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"<br>
 
-3. Una vez configurado nuestro archivo .env se debe ejecutar:
+3- Una vez configurado nuestro archivo .env se debe ejecutar:
 
 php artisan sail:install
 
 Cuando pregunte qué servicio instalar elegir la opción 0 mysql
 
-4. Una vez instalado ahora se podrá ejecutar el proyecto con siguiente comando:
+4- Una vez instalado ahora se podrá ejecutar el proyecto con siguiente comando:
 
 ./vendor/bin/sail up
 
