@@ -1,7 +1,7 @@
 ## Prueba Tecnica
 
-Para Iniciar el proyecto solo se debe iniciar los seeders con el siguiete comando:
+Para Iniciar el proyecto solo se debe iniciar los seeders con el siguiente comando:
 sail artisan migrate:fresh --seed
 
-Para realizar las pruebas en PhpUnit se debe utilizar el siguiente comando:
+Para realizar las pruebas en PHPUnit se debe utilizar el siguiente comando:
 sail artisan test
