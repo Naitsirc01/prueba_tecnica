@@ -14,21 +14,33 @@ class UserController extends Controller
         $this->middleware('auth');
     }
 
+    /**
+     * Retorna una vista que contiene un listado de usuarios en el sistema.
+     */
     public function index(Request $request){
         $request->user()->authorizeRoles(['admin']);
+
         $usuarios=User::paginate(10);
         return view('usuarios',compact('usuarios'));
     }
 
+    /**
+     * Retorna la vista que permite asignar permisos a los usuarios.
+     */
     public function permisos(Request $request){
         $request->user()->authorizeRoles(['admin']);
+
         $user=User::find($request->user_id);
         $permisos=$user->acceso_usuario()->get();
         return view('permisos',compact('user','permisos'));
     }
 
+    /**
+     * Actualiza los permisos del usuario seleccionado.
+     */
     public function update_permisos(Request $request){
         $request->user()->authorizeRoles(['admin']);
+
         $permisos=[];
         if($request->permisos){
             $permisos=$request->permisos;
@@ -53,7 +65,6 @@ class UserController extends Controller
             }
         }
         return redirect::to('/usuarios')->with('success','Los permisos del usuario: '.$request->user_name.' fueron actulizados de forma correcta.');
-        
     }
     
 }

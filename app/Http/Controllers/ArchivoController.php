@@ -18,8 +18,14 @@ class ArchivoController extends Controller
     {
         $this->middleware('auth');
     }
+
+    /**
+     * Retorna la vista para subir archivo, si el usuario es administrador y se envia
+     * la id de un usuario, se envian los datos del usuario
+     */
     public function index(Request $request){
         $request->user()->authorizeRoles(['user', 'admin']);
+
         $user_id=0;
         $user_name='';
         if(Auth::user()->hasRole('admin') and $request->user_id){
@@ -29,24 +35,26 @@ class ArchivoController extends Controller
         }
         return view('subir_archivo',compact('user_id','user_name'));
     }
-
-    public function subir_archivo(Request $request){
-        $request->user()->authorizeRoles(['user', 'admin']);
-    }
-
+    
+    /**
+     * Retorna la vista del historial de archivos para el usuario
+     */
     public function historial_archivo(Request $request){
+        $request->user()->authorizeRoles(['user', 'admin']);
+
         $user=Auth::user();
         $usuarios=false;
-        $request->user()->authorizeRoles(['user', 'admin']);
         $archivos=Archivo::where('user_id',$user->id)->paginate(10);
         return view('historial_archivo',compact('archivos','usuarios'));
     }
 
     /**
      * Carga una lista con todos los archivos solitados por el administrador.
+     * Dependiendo de la id de usuario enviada se filtran los archivos.
      */
     public function historial_archivo_admin(Request $request){
         $request->user()->authorizeRoles(['admin']);
+
         $archivos=DB::table('archivos');
         if($request->user_id){
             $archivos=$archivos->where('user_id',$request->user_id);
@@ -63,7 +71,7 @@ class ArchivoController extends Controller
      */
     public function upload_file(Request $request){
         $request->user()->authorizeRoles(['user', 'admin']);
-
+        
         $user=Auth::user();
         if(!is_null($request->file)){
             try{
@@ -114,7 +122,7 @@ class ArchivoController extends Controller
     }
 
     /**
-     * Enviar un enlace de descargar del archivo solicitado por id.
+     * Envia un enlace de descargar del archivo solicitado por id.
      */
     public function download_file(Request $request){
         $request->user()->authorizeRoles(['user', 'admin']);
@@ -125,7 +133,9 @@ class ArchivoController extends Controller
         return Response::download($file, $archivo->nombre);
     }
 
-    
+    /**
+     * Genera un archivo zip con todos los archivos que tiene almacenado el usuario en su carpeta.
+     */
     public function download_file_all(Request $request){
         $request->user()->authorizeRoles(['user', 'admin']);
 
