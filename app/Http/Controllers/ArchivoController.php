@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use File;
 use Redirect;
+use Response;
+use ZipArchive;
 use App\Models\Archivo;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -40,6 +42,9 @@ class ArchivoController extends Controller
         return view('historial_archivo',compact('archivos','usuarios'));
     }
 
+    /**
+     * Carga una lista con todos los archivos solitados por el administrador.
+     */
     public function historial_archivo_admin(Request $request){
         $request->user()->authorizeRoles(['admin']);
         $archivos=DB::table('archivos');
@@ -54,7 +59,7 @@ class ArchivoController extends Controller
     }
 
     /**
-     * Guarda un archivo en el servidor dentro de una carpeta con el nombre del usuario
+     * Guarda un archivo en el servidor dentro de una carpeta con el nombre del usuario.
      */
     public function upload_file(Request $request){
         $request->user()->authorizeRoles(['user', 'admin']);
@@ -62,8 +67,9 @@ class ArchivoController extends Controller
         $user=Auth::user();
         if(!is_null($request->file)){
             try{
-                $peso=$request->file('file')->getSize();
-                $filename = $request->file->getClientOriginalName() .'_'. time() .'.'. $request->file->getClientOriginalExtension();
+                $peso=$request->file('file')->getSize();          
+                     
+                $filename = time() .'.'. $request->file->getClientOriginalExtension();
                 $path=public_path('/files/'.$user->name.'_'.$user->id);
                 $request->file->move($path,$filename);
                 $archivo=new Archivo();
@@ -86,7 +92,7 @@ class ArchivoController extends Controller
     }
 
     /**
-     * Elimina el registro del archivo de la base como el archivo en el servidor
+     * Elimina el registro del archivo de la base como el archivo en el servidor.
      */
     public function destroy_file(Request $request){
         $request->user()->authorizeRoles(['user', 'admin']);
@@ -105,5 +111,36 @@ class ArchivoController extends Controller
         }
         return redirect::to('/historial')->with('fail','Usted no posee autorización para realizar esta acción');
         
+    }
+
+    /**
+     * Enviar un enlace de descargar del archivo solicitado por id.
+     */
+    public function download_file(Request $request){
+        $request->user()->authorizeRoles(['user', 'admin']);
+
+        $user=Auth::user();
+        $archivo=Archivo::find($request->id);
+        $file= public_path('/files/'.$user->name.'_'.$user->id.'/'.$archivo->nombre_archivo);
+        return Response::download($file, $archivo->nombre);
+    }
+
+    
+    public function download_file_all(Request $request){
+        $request->user()->authorizeRoles(['user', 'admin']);
+
+        $user=Auth::user();
+        $zip=new ZipArchive;
+        $fileName = 'Archivos.zip';
+        if ($zip->open(public_path($fileName), ZipArchive::CREATE) === TRUE) {
+            $files = File::files(public_path('/files/'.$user->name.'_'.$user->id.'/'));
+            foreach ($files as $value) {
+                $relativeName = basename($value);
+                $zip->addFile($value, $relativeName);
+            }
+            $zip->close();
+        }
+        return response()->download(public_path($fileName));;
+
     }
 }

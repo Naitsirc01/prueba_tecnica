@@ -30,5 +30,8 @@ Route::post('/upload_file', 'App\Http\Controllers\ArchivoController@upload_file'
 Route::post('/upload_file/{user_id}', 'App\Http\Controllers\ArchivoController@upload_file');
 Route::get('/delete_file/{id}', 'App\Http\Controllers\ArchivoController@destroy_file');
 Route::get('/delete_file/{id}/{admin}', 'App\Http\Controllers\ArchivoController@destroy_file');
+Route::get('/download_file/{id}', 'App\Http\Controllers\ArchivoController@download_file');
+Route::get('/download_all', 'App\Http\Controllers\ArchivoController@download_file_all');
+
 
 Route::get('/usuarios', 'App\Http\Controllers\UserController@index');

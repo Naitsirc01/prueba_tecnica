@@ -28,6 +28,9 @@
                     </select>
                 </div>
             </div>
+            @else
+                <input id="select_user" hidden>
+                <button id="descargar_todo" class="btn btn-primary"><i class="fa-solid fa-download"></i> Descargar todo</button>
             @endif
             <div class="row mt-4">
                 <div class="col">
@@ -46,6 +49,7 @@
                                 <td>{{$a->nombre}}</td>
                                 <td>{{number_format($a->peso/1000000,2)}} MB</td>
                                 <td>{{$a->created_at}}</td>
+                                <td><a href="/download_file/{{$a->id}}">Descargar</a></td>
                                 @if($usuarios)
                                     <td><a href="/delete_file/{{$a->id}}/1">Eliminar</a></td>
                                 @else
@@ -83,5 +87,9 @@
             const user_id = parseInt(evt.target.value);
             filtro(user_id);
         }
+        document.getElementById("descargar_todo").onclick=function(evt){
+            location.href='/download_all';
+        }
+        
     </script>
 @endsection
