@@ -20,7 +20,7 @@
                         <td>Nombre</td>
                         <td>Email</td>
                         <td>Cantidad de archivos</td>
-                        <td>Acción</td>
+                        <td colspan="2">Acción</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,6 +31,7 @@
                         <td>{{$u->email}}</td>
                         <td>{{count($u->archivos()->get())}}</td>
                         <td><a href="/archivo/{{$u->id}}">Subir un archivo</a></td>
+                        <td><a href="/permisos/{{$u->id}}">Permisos</a></td>
                     </tr>
                     @endforeach
                 </tbody>

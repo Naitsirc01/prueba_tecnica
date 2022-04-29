@@ -71,17 +71,23 @@
                     </ul>
                 </li>
                 @endif
+                @if(Auth::user()->acceso(1))
                 <li class="active">
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Archivos</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
+                        @if(Auth::user()->acceso(2))
                         <li>
                             <a class="boton_menu" href="/archivo">Subir un archivo</a>
                         </li>
+                        @endif
+                        @if(Auth::user()->acceso(3))
                         <li>
                             <a class="boton_menu" href="/historial">Ver historial de archivos</a>
                         </li>
+                        @endif
                     </ul>
                 </li>
+                @endif
                 <li>
                     <a id="logout" class="boton_menu">Cerrar sesión</a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" hidden>

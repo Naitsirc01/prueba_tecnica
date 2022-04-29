@@ -132,15 +132,17 @@ class ArchivoController extends Controller
         $user=Auth::user();
         $zip=new ZipArchive;
         $fileName = 'Archivos.zip';
-        if ($zip->open(public_path($fileName), ZipArchive::CREATE) === TRUE) {
-            $files = File::files(public_path('/files/'.$user->name.'_'.$user->id.'/'));
-            foreach ($files as $value) {
-                $relativeName = basename($value);
-                $zip->addFile($value, $relativeName);
+        if(count($user->archivos()->get())!=0){
+            if ($zip->open(public_path($fileName), ZipArchive::CREATE) === TRUE) {
+                $files = File::files(public_path('/files/'.$user->name.'_'.$user->id.'/'));
+                foreach ($files as $value) {
+                    $relativeName = basename($value);
+                    $zip->addFile($value, $relativeName);
+                }
+                $zip->close();
             }
-            $zip->close();
+            return response()->download(public_path($fileName));;
         }
-        return response()->download(public_path($fileName));;
-
+        return redirect::to('/historial')->with('fail','No existen archivos para descargar');
     }
 }

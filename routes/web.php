@@ -33,5 +33,7 @@ Route::get('/delete_file/{id}/{admin}', 'App\Http\Controllers\ArchivoController@
 Route::get('/download_file/{id}', 'App\Http\Controllers\ArchivoController@download_file');
 Route::get('/download_all', 'App\Http\Controllers\ArchivoController@download_file_all');
 
-
 Route::get('/usuarios', 'App\Http\Controllers\UserController@index');
+
+Route::get('/permisos/{user_id}', 'App\Http\Controllers\UserController@permisos');
+Route::post('/update_permisos', 'App\Http\Controllers\UserController@update_permisos');

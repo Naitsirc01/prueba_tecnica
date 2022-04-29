@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Models\Role;
+use App\Models\Acceso;
+use App\Models\Acceso_usuario;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -80,5 +82,13 @@ class User extends Authenticatable
 
     public function archivos(){
         return $this->hasMany('App\Models\Archivo','user_id');
+    }
+
+    public function acceso($id){
+        return $this->hasMany('App\Models\Acceso_usuario','user_id')->where('acceso_id',$id)->first();
+    }
+
+    public function acceso_usuario(){
+        return $this->hasMany('App\Models\Acceso_usuario','user_id');
     }
 }
