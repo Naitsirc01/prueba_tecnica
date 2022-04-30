@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class ArchivoController extends Controller
 {
@@ -75,6 +76,12 @@ class ArchivoController extends Controller
         $user=Auth::user();
         if(!is_null($request->file)){
             try{
+                $validator = Validator::make($request->all(), [
+                    'file' => 'max:10240',
+                ]);
+                if($validator->fails()){
+                    return redirect::to('/archivo')->with('fail','Debe cargar un que no exceda los 10 MB.');    
+                }
                 $peso=$request->file('file')->getSize();          
                      
                 $filename = time() .'.'. $request->file->getClientOriginalExtension();
